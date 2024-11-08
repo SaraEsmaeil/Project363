@@ -72,7 +72,7 @@
 
         .input-group label {
             font-size: 1rem;
-            text-align: left; /* Align labels to the left */
+            text-align: left;
         }
 
         input[type="text"], input[type="password"] {
@@ -82,7 +82,7 @@
             border-radius: 4px;
             font-size: 1rem;
             box-sizing: border-box;
-            text-align: left; /* Align text inside input fields to the left */
+            text-align: left;
         }
 
         .error-message {
@@ -134,9 +134,60 @@
             font-size: 0.9rem;
         }
 
-        /* Adjust spacing for Back to Login */
         .back-to-login {
             margin-top: 0.5rem;
+        }
+
+        /* Media Query for tablets (768px and up) */
+        @media (max-width: 768px) {
+            .container {
+                width: 80%;
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .input-group label,
+            button {
+                font-size: 0.9rem;
+            }
+
+            .input-group input[type="text"],
+            .input-group input[type="password"] {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Media Query for mobile devices (up to 480px) */
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .input-group label,
+            button {
+                font-size: 0.8rem;
+            }
+
+            .input-group input[type="text"],
+            .input-group input[type="password"] {
+                font-size: 0.8rem;
+            }
+
+            #header-container {
+                height: 40px;
+            }
+
+            .header-image {
+                height: 40px;
+            }
         }
     </style>
 </head>
@@ -262,34 +313,22 @@
 
         function validatePhoneNumber(id) {
             const phoneInput = document.getElementById(id);
-            phoneInput.value = phoneInput.value.replace(/[^0-9+]/g, ''); // Allow only digits and "+"
+            phoneInput.value = phoneInput.value.replace(/[^0-9+]/g, '');
         }
 
         function validateName(id) {
             const nameInput = document.getElementById(id);
-            nameInput.value = nameInput.value.replace(/[^a-zA-Z]/g, ''); // Allow only letters
+            nameInput.value = nameInput.value.replace(/[^a-zA-Z]/g, '');
         }
 
         function signIn() {
             const phoneInput = document.getElementById('phone');
             const passwordInput = document.getElementById('password');
             const errorMessage = document.getElementById('error-message');
+            let valid = phoneInput.value.length === 13 && passwordInput.value.length >= 6;
 
-            let valid = true;
-
-            if (phoneInput.value.length !== 13) {
-                valid = false;
-            }
-            if (passwordInput.value.length < 6) {
-                valid = false;
-            }
-
-            if (!valid) {
-                errorMessage.style.display = 'block';
-            } else {
-                errorMessage.style.display = 'none';
-                alert('Sign-in successful');
-            }
+            errorMessage.style.display = valid ? 'none' : 'block';
+            if (valid) alert('Sign-in successful');
         }
 
         function showForgotPassword() {
@@ -347,17 +386,15 @@
             const confirmPassword = document.getElementById('confirm-password').value;
             const passwordError = document.getElementById('password-error');
 
-            if (newPassword === "" || confirmPassword === "") {
-                passwordError.style.display = 'block';
-                passwordError.innerText = "Please fill all the required fields.";
-            } else if (newPassword.length < 6) {
-                passwordError.style.display = 'block';
-                passwordError.innerText = "Password must contain at least 6 characters.";
-            } else if (newPassword !== confirmPassword) {
-                passwordError.style.display = 'block';
-                passwordError.innerText = "Passwords do not match.";
-            } else {
-                passwordError.style.display = 'none';
+            let errorText = "";
+            if (!newPassword || !confirmPassword) errorText = "Please fill all the required fields.";
+            else if (newPassword.length < 6) errorText = "Password must contain at least 6 characters.";
+            else if (newPassword !== confirmPassword) errorText = "Passwords do not match.";
+
+            passwordError.style.display = errorText ? 'block' : 'none';
+            passwordError.innerText = errorText;
+
+            if (!errorText) {
                 alert('Password reset successfully');
                 showLogin();
             }
@@ -371,7 +408,7 @@
             document.getElementById('reset-password-form').style.display = 'none';
             document.getElementById('signup-form').style.display = 'none';
             document.getElementById('header-image').src = "swe363headerimage.png";
-            document.getElementById('error-message').style.display = 'none'; // Hide error message
+            document.getElementById('error-message').style.display = 'none';
         }
 
         function showSignUp() {
@@ -392,30 +429,19 @@
             const terms = document.getElementById('terms').checked;
             const signupErrorMessage = document.getElementById('signup-error-message');
 
-            let errorMessage = "Please fill all the required fields.";
+            let errorText = "Please fill all the required fields.";
             let valid = true;
 
-            if (!firstName || !lastName || !phone || !password || !terms) {
-                valid = false;
-            } else if (firstName.length < 3) {
-                errorMessage = "First name must contain at least 3 letters.";
-                valid = false;
-            } else if (lastName.length < 4) {
-                errorMessage = "Last name must contain at least 4 letters.";
-                valid = false;
-            } else if (phone.length !== 13) {
-                errorMessage = "Please enter a valid phone number with 9 digits after +966.";
-                valid = false;
-            } else if (password.length < 6) {
-                errorMessage = "Password must contain at least 6 characters.";
-                valid = false;
-            }
+            if (!firstName || !lastName || !phone || !password || !terms) valid = false;
+            else if (firstName.length < 3) { errorText = "First name must contain at least 3 letters."; valid = false; }
+            else if (lastName.length < 4) { errorText = "Last name must contain at least 4 letters."; valid = false; }
+            else if (phone.length !== 13) { errorText = "Please enter a valid phone number with 9 digits after +966."; valid = false; }
+            else if (password.length < 6) { errorText = "Password must contain at least 6 characters."; valid = false; }
 
-            if (!valid) {
-                signupErrorMessage.style.display = 'block';
-                signupErrorMessage.innerText = errorMessage;
-            } else {
-                signupErrorMessage.style.display = 'none';
+            signupErrorMessage.style.display = valid ? 'none' : 'block';
+            signupErrorMessage.innerText = errorText;
+
+            if (valid) {
                 alert('Account created successfully!');
                 showLogin();
             }
