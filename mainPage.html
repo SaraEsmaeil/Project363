@@ -310,7 +310,6 @@
         ];
 
         // Constant verification code (for now, it is the same for all users)
-        // In the future, this will be unique and sent via SMS for each user.
         const verificationCode = "123456";
 
         function addPrefix(id) {
@@ -340,6 +339,9 @@
             if (user) {
                 alert('Sign-in successful! Welcome, ' + user.firstName + ' ' + user.lastName + '!');
                 errorMessage.style.display = 'none';
+                
+                // Redirect to home page after successful login
+                window.location.href = 'home.html';
             } else {
                 errorMessage.innerText = 'The phone number or password you entered is incorrect.';
                 errorMessage.style.display = 'block';
