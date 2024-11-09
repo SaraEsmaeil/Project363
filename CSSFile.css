@@ -47,6 +47,11 @@ h1 {
 .user-info-header p {
     color: gray;
 }
+.user-info-header h2{
+    font-size: 9px;
+    color: gray;
+
+}
 
 .borrowed, .returned {
     margin-left: 10px;
