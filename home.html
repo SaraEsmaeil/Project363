@@ -234,6 +234,61 @@
         .navbar{
         background-color: #456c66db;
         }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .container, .container2 {
+                padding: 10px;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tabs .tab {
+                font-size: 18px;
+                padding: 8px;
+            }
+
+            .goal {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .goals {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-img {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 24px;
+            }
+
+            .goal {
+                width: 100%;
+                font-size: 16px;
+            }
+
+            .about-img {
+                height: 200px;
+            }
+
+            .get-started button {
+                width: 100%;
+                padding: 15px;
+                font-size: 20px;
+            }
+        }
     </style>
 </head>
 <body>
