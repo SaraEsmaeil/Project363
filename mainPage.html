@@ -304,6 +304,15 @@
     </div>
 
     <script>
+        // Dummy data for initial users
+        const users = [
+            { firstName: 'Shahad', lastName: 'Sulais', phone: '+966505865948', password: 'Shahad123456' }
+        ];
+
+        // Constant verification code (for now, it is the same for all users)
+        // In the future, this will be unique and sent via SMS for each user.
+        const verificationCode = "123456";
+
         function addPrefix(id) {
             const phoneInput = document.getElementById(id);
             if (!phoneInput.value.startsWith('+966')) {
@@ -322,43 +331,69 @@
         }
 
         function signIn() {
-            const phoneInput = document.getElementById('phone');
-            const passwordInput = document.getElementById('password');
+            const phoneInput = document.getElementById('phone').value;
+            const passwordInput = document.getElementById('password').value;
             const errorMessage = document.getElementById('error-message');
-            let valid = phoneInput.value.length === 13 && passwordInput.value.length >= 6;
 
-            errorMessage.style.display = valid ? 'none' : 'block';
-            if (valid) alert('Sign-in successful');
+            const user = users.find(user => user.phone === phoneInput && user.password === passwordInput);
+
+            if (user) {
+                alert('Sign-in successful! Welcome, ' + user.firstName + ' ' + user.lastName + '!');
+                errorMessage.style.display = 'none';
+            } else {
+                errorMessage.innerText = 'The phone number or password you entered is incorrect.';
+                errorMessage.style.display = 'block';
+            }
         }
 
-        function showForgotPassword() {
-            document.getElementById('login-form').style.display = 'none';
-            document.getElementById('forgot-password-form').style.display = 'block';
-            document.getElementById('header-image').src = "swe363headerimage2.png";
+        function createAccount() {
+            const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const phone = document.getElementById('signup-phone').value;
+            const password = document.getElementById('signup-password').value;
+            const terms = document.getElementById('terms').checked;
+            const signupErrorMessage = document.getElementById('signup-error-message');
+
+            let errorText = "Please fill all the required fields.";
+            let valid = true;
+
+            if (!firstName || !lastName || !phone || !password || !terms) valid = false;
+            else if (firstName.length < 3) { errorText = "First name must contain at least 3 letters."; valid = false; }
+            else if (lastName.length < 4) { errorText = "Last name must contain at least 4 letters."; valid = false; }
+            else if (phone.length !== 13) { errorText = "Please enter a valid phone number with 9 digits after +966."; valid = false; }
+            else if (password.length < 6) { errorText = "Password must contain at least 6 characters."; valid = false; }
+
+            const existingUser = users.find(user => user.phone === phone);
+            if (existingUser) {
+                errorText = "An account with this phone number already exists.";
+                valid = false;
+            }
+
+            signupErrorMessage.style.display = valid ? 'none' : 'block';
+            signupErrorMessage.innerText = errorText;
+
+            if (valid) {
+                users.push({ firstName, lastName, phone, password });
+                alert('Account created successfully!');
+                showLogin();
+            }
         }
 
         function sendResetCode() {
             const resetPhoneInput = document.getElementById('reset-phone').value;
-            if (resetPhoneInput.length === 13) {
+            const existingUser = users.find(user => user.phone === resetPhoneInput);
+
+            if (existingUser) {
                 alert("A reset code has been sent to your phone number.");
                 showVerification();
             } else {
-                alert("Please enter a valid phone number.");
+                alert("This phone number does not exist in our records.");
             }
         }
 
-        function showVerification() {
-            document.getElementById('forgot-password-form').style.display = 'none';
-            document.getElementById('verification-form').style.display = 'block';
-        }
-
-        function resendCode() {
-            alert("A new verification code has been sent.");
-        }
-
         function verifyCode() {
-            const verificationCode = document.getElementById('verification-code').value;
-            if (verificationCode.length === 6) {
+            const enteredCode = document.getElementById('verification-code').value;
+            if (enteredCode === verificationCode) {
                 alert("Verification successful!");
                 showResetPassword();
             } else {
@@ -381,23 +416,8 @@
             document.getElementById('reset-password-form').style.display = 'block';
         }
 
-        function resetPassword() {
-            const newPassword = document.getElementById('new-password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
-            const passwordError = document.getElementById('password-error');
-
-            let errorText = "";
-            if (!newPassword || !confirmPassword) errorText = "Please fill all the required fields.";
-            else if (newPassword.length < 6) errorText = "Password must contain at least 6 characters.";
-            else if (newPassword !== confirmPassword) errorText = "Passwords do not match.";
-
-            passwordError.style.display = errorText ? 'block' : 'none';
-            passwordError.innerText = errorText;
-
-            if (!errorText) {
-                alert('Password reset successfully');
-                showLogin();
-            }
+        function resendCode() {
+            alert("Code resend successfully");
         }
 
         function showLogin() {
@@ -411,40 +431,50 @@
             document.getElementById('error-message').style.display = 'none';
         }
 
+        function showForgotPassword() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('forgot-password-form').style.display = 'block';
+            document.getElementById('header-image').src = "swe363headerimage2.png";
+        }
+
+        function showVerification() {
+            document.getElementById('forgot-password-form').style.display = 'none';
+            document.getElementById('verification-form').style.display = 'block';
+        }
+
+        function resetPassword() {
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const passwordError = document.getElementById('password-error');
+            const resetPhoneInput = document.getElementById('reset-phone').value;
+
+            let errorText = "";
+            if (!newPassword || !confirmPassword) errorText = "Please fill all the required fields.";
+            else if (newPassword.length < 6) errorText = "Password must contain at least 6 characters.";
+            else if (newPassword !== confirmPassword) errorText = "Passwords do not match.";
+
+            passwordError.style.display = errorText ? 'block' : 'none';
+            passwordError.innerText = errorText;
+
+            if (!errorText) {
+                const user = users.find(user => user.phone === resetPhoneInput);
+                if (user) {
+                    user.password = newPassword;
+                    alert('Password reset successfully');
+                    showLogin();
+                } else {
+                    alert('Error: Phone number not found.');
+                }
+            }
+        }
+
         function showSignUp() {
             document.getElementById('login-form').style.display = 'none';
             document.getElementById('forgot-password-form').style.display = 'none';
             document.getElementById('verification-form').style.display = 'none';
-            document.getElementById('invalid-code-form').style.display = 'none';
             document.getElementById('reset-password-form').style.display = 'none';
             document.getElementById('signup-form').style.display = 'block';
             document.getElementById('header-image').src = "swe363headerimage2.png";
-        }
-
-        function createAccount() {
-            const firstName = document.getElementById('first-name').value;
-            const lastName = document.getElementById('last-name').value;
-            const phone = document.getElementById('signup-phone').value;
-            const password = document.getElementById('signup-password').value;
-            const terms = document.getElementById('terms').checked;
-            const signupErrorMessage = document.getElementById('signup-error-message');
-
-            let errorText = "Please fill all the required fields.";
-            let valid = true;
-
-            if (!firstName || !lastName || !phone || !password || !terms) valid = false;
-            else if (firstName.length < 3) { errorText = "First name must contain at least 3 letters."; valid = false; }
-            else if (lastName.length < 4) { errorText = "Last name must contain at least 4 letters."; valid = false; }
-            else if (phone.length !== 13) { errorText = "Please enter a valid phone number with 9 digits after +966."; valid = false; }
-            else if (password.length < 6) { errorText = "Password must contain at least 6 characters."; valid = false; }
-
-            signupErrorMessage.style.display = valid ? 'none' : 'block';
-            signupErrorMessage.innerText = errorText;
-
-            if (valid) {
-                alert('Account created successfully!');
-                showLogin();
-            }
         }
     </script>
 </body>
