@@ -78,7 +78,7 @@
         ul li {
             font-size: 18px;
             color: #666;
-            background-color: rgba(255, 255, 255, 0.8); 
+            background-color: rgba(255, 255, 255, 0.8);
             padding: 10px 15px;
             margin: 20px 0;
             border-radius: 8px;
@@ -86,10 +86,10 @@
             transition: background-color 0.3s;
             display: flex;
             align-items: center;
-            width: 100%; 
+            width: 100%;
         }
         ul li:hover {
-            background-color: rgba(240, 244, 248, 0.8); 
+            background-color: rgba(240, 244, 248, 0.8);
         }
         .icon {
             font-size: 30px;
@@ -113,7 +113,7 @@
         .about-us {
             background-color: #fff;
             padding: 30px;
-            border-radius: 20px; 
+            border-radius: 20px;
             width: 94%;
             max-width: 1000px;
             max-height: 800px;
@@ -174,7 +174,7 @@
             font-size: 18px;
             color: #fff;
             padding: 15px;
-            border-radius: 20px; 
+            border-radius: 20px;
             width: 300px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-right: 10px;
@@ -188,7 +188,7 @@
             height: 100px;
             object-fit: cover;
             margin-bottom: 20px;
-            border-radius: 50%; 
+            border-radius: 50%;
         }
 
         .goal:nth-child(1) {
@@ -202,9 +202,41 @@
         .goal:nth-child(3) {
             animation-delay: 1.5s;
         }
+        .search-container {
+            flex-grow: 1;
+            margin-right: 20px;
+        }
+
+        .suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+        }
+
+        .suggestions div {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .suggestions div:hover {
+            background-color: #f0f0f0;
+        }
+
+        .nav-link .bi {
+            font-size: 1.5rem;
+        }
+
+        .navbar{
+        background-color: #456c66db;
+        }
     </style>
 </head>
-<body class="body">
+<body>
     <header class="navbar navbar-expand-lg navbar-light border-bottom">
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center" href="#">
@@ -221,6 +253,18 @@
             </div>
         </div>
     </header>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Categories</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Support & Help</a></li>
+            </ul>
+        </div>
+    </nav>
+   
     <div class="container">
         <div class="about-us">
             <h2>About Us</h2>
@@ -229,7 +273,7 @@
                 <img class="about-img" src="logo.jpg" alt="Logo" >
             </div>
         </div>
-    
+   
     <div class="goals">
         <div class="goal">
             <img src="goal1.jpg" alt="Goal 1">
@@ -247,14 +291,14 @@
             <p>To create an easy-to-use platform where students can connect and support each other.</p>
         </div>
     </div>
-        
+       
         <div class="container2">
             <h2>How It Works</h2>
             <div class="tabs">
                 <div class="tab active" onclick="showContent('lenders')">For Lenders</div>
                 <div class="tab" onclick="showContent('borrowers')">For Borrowers</div>
             </div>
-            
+           
             <div id="lenders" class="content active">
                 <ul>
                     <li><span class="icon">➀</span>Sign up and complete your profile</li>
@@ -263,7 +307,7 @@
                     <li><span class="icon">➃</span>Meet borrowers and lend your items</li>
                 </ul>
             </div>
-            
+           
             <div id="borrowers" class="content">
                 <ul>
                     <li><span class="icon">➀</span>Sign up and complete your profile</li>
@@ -293,7 +337,7 @@
 
     <footer style="background-color: rgba(25, 87, 89, 0.30); padding: 2rem 0; font-family: Arial, sans-serif;">
         <div style="display: flex; justify-content: space-around; max-width: 1200px; margin: 0 auto; text-align: left; color: #333;">
-        
+       
             <div>
                 <h4 style="margin-bottom: 0.5rem;">About KFUPMLenders</h4>
                 <p style="font-size: 0.9rem; color: #333;">
@@ -317,7 +361,7 @@
         </div>
 
         <div style="border-top: 1px solid #ccc; margin-top: 1rem; padding-top: 1rem; font-size: 0.8rem; color: #666; text-align: center;">
-            © 2024 KFUPMLenders. All rights reserved.
+            ©️ 2024 KFUPMLenders. All rights reserved.
         </div>
     </footer>
 
