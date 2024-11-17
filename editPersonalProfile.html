@@ -39,13 +39,13 @@
                 <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="Categories and items.html">Categories</a></li>
                 <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Support & Help</a></li>
+                <li class="nav-item"><a class="nav-link" href="#footer">Support & Help</a></li>
             </ul>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <div class="container">
+    <div class="container my-4">
         <h1>Personal Profile</h1>
         
         <div class="user-info-box">
@@ -93,7 +93,54 @@
                 <button id="settingsButton" class="btn btn-primary">Edit Profile</button>
             </div>
         </div>
-    </div> <!-- End of Main Content Container -->
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeEditModal">&times;</span> 
+            <h3>Edit Profile</h3>
+            <img src="Frame.png" alt="User Profile" class="profile-image">
+            <form id="editForm"> 
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter phone number" required>
+    
+                <input type="submit" value="Update" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+
+    <!-- Verify Modal -->
+    <div id="verifyModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeVerifyModal">&times;</span>
+            <h3>Verify Your Phone Number</h3>
+            <form id="verifyForm">
+                <label for="verificationPhone">Phone Number Verification:</label>
+                <input type="tel" id="verificationPhone" name="verificationPhone" placeholder="Verify your phone number" required>
+                <div class="timer" id="timer">1:00</div>
+                
+                <input type="submit" id="verifyButton" class="btn btn-primary" value="Verify">
+                <input type="button" id="callBackButton" class="btn btn-secondary" value="Call Back" onclick="callBack()">
+            </form>
+        </div>
+    </div>
+
+    <!-- Invalid Code Modal -->
+    <div id="invalidCodeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeInvalidCodeModal">&times;</span>
+            <h3>Invalid Verification Code</h3>
+            <img src="Vector.png" alt="Vector img" class="Invalid-Code">
+            <p>The verification code you entered is incorrect or has expired</p>
+            <input type="button" id="tryAgainButton" class="btn btn-primary" value="Try Again">
+            <input type="button" id="resendCodeButton" class="btn btn-secondary" value="Resend Code">
+            <input type="button" id="backToEditProfileButton" class="btn btn-secondary" value="Back to Edit Profile">
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer style="background-color: rgba(25, 87, 89, 0.30); padding: 2rem 0; font-family: Arial, sans-serif;">
