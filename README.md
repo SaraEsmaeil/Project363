@@ -43,3 +43,9 @@ The Personal Profile page works similarly to the manager profile but is designed
 
 ### 8. Add Items
 The Add Item page enables users to add items they want to lend. The page includes fields for the item name, description, and a photo to showcase the item’s quality. Users can also select the item’s availability using a calendar. The page requires users to complete all fields, and if any information is missing, an alert will prompt them to fill in the required details. Once all information is entered, the user will receive a confirmation message saying "Info Added Successfully." The item can also be categorized, and after submitting the details, the user can click the "Add Item" button to submit the item, which will redirect them to the home page.
+### 9. home page
+home.html is the homepage of the website where users can learn more about our team, the goals we have set, and how to use the webpage as a lender or borrower. At the top of the page, the header allows users to navigate to their desired tab.
+### 10. User dashboard
+dashboard.html is a page that contains all the announcements for users regarding any new items added and maintenance updates. It also includes frequently asked questions, with answers that can be revealed by clicking on each question.
+### 11. Item details
+itemdetails.html contains information about the items listed in the categories. If the user clicks on an item, they will see the details, picture, and description of the item, along with the lender's name. After checking the reviews of the item below the description, the user can contact the lender to book the item for use. The booking will later be added to the notification bar. If the "Contact Lender" button does not work, it will open an email to support@kfupmlenders.com to connect with the lender and solve the issue.
