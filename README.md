@@ -34,3 +34,12 @@ The site uses a dummy database for demonstration purposes, containing the follow
 - If the user enters the wrong validation code, they will see two options:
   - **Resend:** Send a new validation code *(fixed as `123456` for this demonstration)*.
   - **Try Again:** Retry the same code without requesting a new one.
+
+### 6. Manager Profile
+The Manager Profile page displays important information about the manager, such as their role and the date they joined the platform. It also provides key platform statistics, like the total number of users, the average rating, and the number of completed transactions. This page allows the manager to update their profile by adding new information. After making changes, the manager must verify these modifications with a verification code, which expires after 1 minute. If the time limit is exceeded, the page will show two buttons: "Try Again" and "Back to Edit Profile."
+
+### 7. Personal Profile
+The Personal Profile page works similarly to the manager profile but is designed for individual users. It shows user information and recent activities, such as borrowing history. Users can edit their profile by adding personal details, and they will need to verify the changes with a phone number verification code. This process is also time-sensitive, with a timer counting down for 1 minute to complete the verification. If the timer expires, users will see options to either "Try Again" or "Back to Edit Profile."
+
+### 8. Add Items
+The Add Item page enables users to add items they want to lend. The page includes fields for the item name, description, and a photo to showcase the item’s quality. Users can also select the item’s availability using a calendar. The page requires users to complete all fields, and if any information is missing, an alert will prompt them to fill in the required details. Once all information is entered, the user will receive a confirmation message saying "Info Added Successfully." The item can also be categorized, and after submitting the details, the user can click the "Add Item" button to submit the item, which will redirect them to the home page.
