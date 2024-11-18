@@ -56,5 +56,10 @@ The Add Item page enables users to add items they want to lend. The page include
 - Lender Information: Below the description, users can find the name of the lender.
 - Reviews Section: Users can view reviews left by other borrowers.
 - Contact Lender: If users want to contact the lender for more information or to book the item, there is a Contact Lender button.
-- The button will open the email to mail to support@kfupmlenders.com if there was any problem with contacting the lender.
-
+- The button will open the email to mail to support@kfupmlenders.com if there is any problem with contacting the lender.
+# Categories and items.html
+	•	Navbar: Includes a logo, search functionality, notifications, and profile options.
+	•	Categories Section: Displays featured categories with clickable cards for navigation.
+	•	Items Section: Dynamically loads items within a selected category by clicking on a category card.
+	•	Reviews Section: Showcase user reviews to build trust and credibility.
+	•	Footer: Provides information about the platform, quick links, and contact details.
