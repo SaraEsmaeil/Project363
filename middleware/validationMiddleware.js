@@ -1,3 +1,4 @@
+
 const { check, validationResult } = require('express-validator');
 
 // Middleware for validating user registration data
